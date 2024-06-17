@@ -222,7 +222,7 @@ defmodule Ecto.Association do
     |> Enum.map(&elem(&1, 0))
 
     # If we're preloading we don't need the last table since it is the owner table.
-    filtered_list = if(join_to == nil, do: Enum.slice(filtered_list, 0..-2), else: filtered_list)
+    filtered_list = if(join_to == nil, do: Enum.drop(filtered_list, -1), else: filtered_list)
 
     [source | joins] = filtered_list
 
@@ -425,7 +425,7 @@ defmodule Ecto.Association do
   end
 
   def apply_defaults(struct, {mod, fun, args}, owner) do
-    apply(mod, fun, [struct.__struct__, owner | args])
+    apply(mod, fun, [struct.__struct__(), owner | args])
   end
 
   @doc """

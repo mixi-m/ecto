@@ -281,7 +281,7 @@ defmodule Ecto.Embedded do
 
   @impl Relation
   def build(%Embedded{related: related}, _owner) do
-    related.__struct__
+    related.__struct__()
   end
 
   def preload_info(_embed) do
